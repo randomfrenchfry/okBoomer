@@ -26,6 +26,7 @@ class AVL{
             findMin(t->right);
         }
         return t->data;
+        //what it do
     };
     node* remove(int x, node* t);
     int height(node* t);
