@@ -19,13 +19,13 @@ class AVL{
         while(t->left != nullptr){
             findMin(t->left);
         }
-        return t->data;
+        return t;
     };
     node* findMax(node* t){
         while(t->right != nullptr){
             findMin(t->right);
         }
-        return t->data;
+        return t;
     };
     node* remove(int x, node* t);
     int height(node* t);
