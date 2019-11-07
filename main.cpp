@@ -5,7 +5,7 @@ struct node{
     node* left;
     node* right;
     int height;
-}
+};
 
 class AVL{
     public:
