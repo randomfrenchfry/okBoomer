@@ -1,4 +1,5 @@
-
+#include <iostream>
+using namespace std;
 
 struct node{
     int data;
@@ -59,6 +60,14 @@ class AVL{
             return 0;
         return height(t->left)-height(t->right);
     }
-    void inorder(node* t);
+    void inorder(node* t){
+        if(t==NULL)
+            return;
+        else {
+            inorder(t->left);
+            cout << t->data << endl;
+            inorder(t->right);
+        }
+    }
     void display();
 };
