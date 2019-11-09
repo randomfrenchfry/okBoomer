@@ -51,9 +51,12 @@ class AVL{
     //comment comment
     node* remove(int x, node* t);
     int height(node* t){
-        if(t== nullptr)
+        int l,r;
+        if(t==NULL)
             return 0;
-        return t->height;
+        l=height(t->left);
+        r=height(t->right);
+        return l>r?l+1:r+1;
     }
     int getBalance(node* t){
         if(t== nullptr)
