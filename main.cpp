@@ -13,7 +13,8 @@ class AVL{
     node* root;
     AVL(){root==nullptr;}
     void makeEmpty(node* t);
-    node* insert(int x, node* t){
+    node* insert(int x){
+        node* t = root;
         if(t== nullptr){
             node*p=new node;
             p->data = x;
@@ -22,16 +23,37 @@ class AVL{
             p->height=1;
             return p;
         }
-        if(x < t->data){ //if the new data is less than previous node data
-            t->left = insert(x,t->left);
+        int height = 0;
+        while(t != nullptr){
+            height++;
+            if (x < t->data){
+                if (t->left == nullptr){
+                    node*p=new node;
+                    p->data = x;
+                    p->left = nullptr;
+                    p->right = nullptr;
+                    p->height=height;
+                    t->left = p;
+                    return p;
+                }
+                t = t->left;
+            }else if(x > t->data){
+                if(x> t->data){
+                    node*p=new node;
+                    p->data = x;
+                    p->left = nullptr;
+                    p->right = nullptr;
+                    p->height=height;
+                    t->right = p;
+                    return p;
+                }
+                t = t->right;
+            }else{
+                return t;
+            }
         }
-        else if(x > t->data){ //if the new data is more than previous node data
-            t->right = insert(x,t->right);
-        }
-        else
-            return t;
-        //Need to finish this
     }
+
     node* singleRightRotate(node* &t);
     node* singleLeftRotate(node* &t);
     node* doubleLeftRotate(node* &t);
