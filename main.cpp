@@ -85,7 +85,7 @@ class AVL{
         //at this point t is the parent node of the node we just inserted
         //last is the node we inserted;
         cout << "checking balence" << endl;
-        while(t->parent != nullptr){
+        while(t != nullptr){
             if(abs(getBalance(t)) <= 1){//good enough balence go up a level
                 cout << "balence at " << t->data << " is " << getBalance(t) << endl;
                 last = t;
@@ -123,6 +123,7 @@ class AVL{
         //make t parent of pivot
         //make parent ts parent
         cout << "starting right rotate" << endl;
+        if(pivot == root){
         node* t = pivot->left;
         node* parent = pivot->parent;
         if(pivot->parent->left == pivot){
@@ -143,10 +144,23 @@ class AVL{
         cout<< "step5" <<endl;
         t->parent = parent;
         cout<< "step6" <<endl;
-        //if pivot == root set root to t
-        if(root == pivot){
+        }else{//pivot is root
+            node* t = pivot->left;
             root = t;
+
+            pivot->left = t->right;
+            if(t->right != nullptr){
+                t->right->parent = pivot;
+            }
+
+            t->right = pivot;
+
+            pivot->parent = t;
+
+            t->parent = nullptr;
         }
+        
+        
     };
     node* singleLeftRotate(node* pivot){
         //make parent point at t
@@ -155,29 +169,41 @@ class AVL{
         //make pivot left child of t
         //make t parent of pivot
         //make parent ts parent
-        node* t = pivot->right;
-        node* parent = pivot->parent;
-        if(pivot->parent->left == pivot){
-            pivot->parent->left = t;
-        }else{
-            pivot->parent->right = t;
-        }
+        if(pivot != root){
+            node* t = pivot->right;
+            node* parent = pivot->parent;
+            if(pivot->parent->left == pivot){
+                pivot->parent->left = t;
+            }else{
+                pivot->parent->right = t;
+            }
 
-        pivot->right = t->left;
+            pivot->right = t->left;
 
-        if(t->left != nullptr){
-            t->left->parent = pivot;
-        }
+            if(t->left != nullptr){
+                t->left->parent = pivot;
+            }
 
-        t->left = pivot;
+            t->left = pivot;
 
-        pivot->parent = t;
+            pivot->parent = t;
 
-        t->parent = parent;
-
-        //if pivot == root set root to t
-        if(root == pivot){
+            t->parent = parent;
+        }else{//pivot is root
+            node* t = pivot->right;
             root = t;
+
+            pivot->right = t->left;
+            if(t->left != nullptr){
+                t->left->parent = pivot;
+            }
+
+            t->left = pivot;
+
+            pivot->parent = t;
+
+            t->parent = nullptr;
+
         }
     };
     node* doubleLeftRotate(node* pivot){
@@ -284,26 +310,27 @@ class AVL{
 
 int main(){
     AVL l;
-    //cout << l.root->data << "--" << endl;
-    //l.display();
-    l.insert(1000000);
-    //cout << l.root->data  << "--" << endl;
-    //l.display();
-    l.insert(15);
-    //l.display();
-    //cout << l.root->data  << "--" << endl;
-    l.insert(5);
-
-    l.insert(20);
+    
+    l.insert(1);
+    
+    l.insert(2);
+    
+    l.insert(3);
 
     l.insert(4);
 
-    l.insert(3);
-
-    l.display();
+    l.insert(5);
 
     l.insert(6);
 
+    //l.display();
+
+    //l.insert(6);
+
+    //l.display();
+
+    //l.remove(1000000);
+
     l.display();
-    //cout << l.root->data  << "--" << endl;
+    
 }
